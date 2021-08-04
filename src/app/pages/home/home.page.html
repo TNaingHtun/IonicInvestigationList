@@ -1,0 +1,109 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>
+            アカウント
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+    <div class="container">
+        <ion-row class="profile" (click)="goToProfile()">
+            <ion-col size="2">
+                <img src="{{image}}" alt="Profile">
+            </ion-col>
+            <ion-col size="10">
+                <ion-label class="family-name">{{name}}</ion-label>
+                <ion-label class="name">{{phone}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row class="title">
+            <ion-label>各種設定</ion-label>
+        </ion-row>
+        <ion-row class="text">
+            <ion-col size="11">
+                <ion-label>各種設定</ion-label>
+            </ion-col>
+            <ion-col size="1">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-col>
+        </ion-row>
+        <ion-row class="text">
+            <ion-col size="11">
+                <ion-label>各種設定</ion-label>
+            </ion-col>
+            <ion-col size="1">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-col>
+        </ion-row>
+        <ion-row class="text">
+            <ion-col size="11">
+                <ion-label>各種設定</ion-label>
+            </ion-col>
+            <ion-col size="1">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-col>
+        </ion-row>
+        <ion-row class="title">
+            <ion-label>各種設定</ion-label>
+        </ion-row>
+        <ion-row class="text">
+            <ion-col size="11">
+                <ion-label>各種設定</ion-label>
+            </ion-col>
+            <ion-col size="1">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-col>
+        </ion-row>
+        <ion-row class="text">
+            <ion-col size="11">
+                <ion-label>各種設定</ion-label>
+            </ion-col>
+            <ion-col size="1">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-col>
+        </ion-row>
+        <ion-row class="text">
+            <ion-col size="11">
+                <ion-label>各種設定</ion-label>
+            </ion-col>
+            <ion-col size="1">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-col>
+        </ion-row>
+        <ion-row class="text">
+            <ion-col size="11">
+                <ion-label>各種設定</ion-label>
+            </ion-col>
+            <ion-col size="1">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-col>
+        </ion-row>
+        <ion-row class="text">
+            <ion-col size="11">
+                <ion-label>各種設定</ion-label>
+            </ion-col>
+            <ion-col size="1">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-col>
+        </ion-row>
+    </div>
+
+</ion-content>
+<ion-footer>
+    <ion-row class="btn-row">
+        <ion-col size="12" class="pd-0">
+            <ion-button (click)="toProgressBar()" shape="full" expand="block" class="btn-bottom">
+                Progress Bar
+            </ion-button>
+        </ion-col>
+    </ion-row>
+    <ion-row class="btn-row">
+        <ion-col size="12" class="pd-0">
+            <ion-button (click)="toCalendar()" shape="full" expand="block" class="btn-bottom">
+                Calendar
+            </ion-button>
+        </ion-col>
+    </ion-row>
+</ion-footer>

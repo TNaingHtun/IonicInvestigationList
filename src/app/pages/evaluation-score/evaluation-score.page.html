@@ -1,0 +1,179 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="reanswerQuestion()">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>evaluation-score</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="progress-bar">
+        <span>{{percent}}%</span>
+        <ion-progress-bar [value]="progress"></ion-progress-bar><span>{{currentPage}}/{{total}}</span>
+    </div>
+    <ion-slides pager="true" [options]="slideOpts" (ionSlideDidChange)="slideDidChange(slides)">
+
+        <ion-slide #slides class="slide" *ngFor="let evaluationData of evaluationDataList">
+            <div class="commitment-data">
+                <ion-row>
+                    <ion-col class="label" size="2">
+                        <ion-label>店舗管理</ion-label>
+                    </ion-col>
+                    <ion-col class="date" size="10">
+                        <ion-label>Evaluation time is {{timeAgo}}</ion-label>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="commitment-name">
+                    <ion-label>ABC分析から適正な発注量を出し管理・発注の指導ができる</ion-label>
+                </ion-row>
+                <ion-row class="skill-detail">
+                    <ion-label>この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。</ion-label>
+                </ion-row>
+            </div>
+
+            <div class="evaluation-user">
+                <ion-row>
+                    <ion-col class="icon" size="6">
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                    </ion-col>
+                    <ion-col class="user-id" size="6">
+                        <ion-label>{{evaluationData.id}}</ion-label>
+                    </ion-col>
+                </ion-row>
+            </div>
+
+            <div class="star-div">
+                <ion-row class="evaluation self-evaluation text-center">
+                    <ion-col class="label" size="3">
+                        <ion-label>中間自己評価</ion-label>
+                    </ion-col>
+                    <ion-col *ngIf="evaluationData.self_evaluation_rating === 0" size="6">
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                    </ion-col>
+                    <ion-col *ngIf="evaluationData.self_evaluation_rating === 1" size="6">
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                    </ion-col>
+                    <ion-col *ngIf="evaluationData.self_evaluation_rating === 2" size="6">
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                    </ion-col>
+                    <ion-col *ngIf="evaluationData.self_evaluation_rating === 3" size="6">
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                    </ion-col>
+                    <ion-col *ngIf="evaluationData.self_evaluation_rating === 4" size="6">
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="evaluation final_evaluation text-center">
+                    <ion-col class="label" size="3">
+                        <ion-label>中間自己評価</ion-label>
+                    </ion-col>
+                    <ion-col *ngIf="evaluationData.final_evaluation_rating === 0" size="6">
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                    </ion-col>
+                    <ion-col *ngIf="evaluationData.final_evaluation_rating === 1" size="6">
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                    </ion-col>
+                    <ion-col *ngIf="evaluationData.final_evaluation_rating === 2" size="6">
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                    </ion-col>
+                    <ion-col *ngIf="evaluationData.final_evaluation_rating === 3" size="6">
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                    </ion-col>
+                    <ion-col *ngIf="evaluationData.final_evaluation_rating === 4" size="6">
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="evaluation fixed_evaluation text-center">
+                    <ion-col class="label" size="3">
+                        <ion-label>中間自己評価</ion-label>
+                    </ion-col>
+                    <ion-col *ngIf="evaluationData.fixed_evaluation_rating === 0" size="6">
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                    </ion-col>
+                    <ion-col *ngIf="evaluationData.fixed_evaluation_rating === 1" size="6">
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                    </ion-col>
+                    <ion-col *ngIf="evaluationData.fixed_evaluation_rating === 2" size="6">
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                    </ion-col>
+                    <ion-col *ngIf="evaluationData.fixed_evaluation_rating === 3" size="6">
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="white"></ion-icon>
+                    </ion-col>
+                    <ion-col *ngIf="evaluationData.fixed_evaluation_rating === 4" size="6">
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                        <ion-icon name="star" class="gray"></ion-icon>
+                    </ion-col>
+                </ion-row>
+            </div>
+
+            <!-- <div class="footer">
+                <ion-row class="evaluation definitive-evaluation text-center">
+                    <ion-col size="12">
+                        <ion-icon name="star" (click)="ratingValueChange(evaluationData,1)" [ngClass]="definitiveEvaluation1"></ion-icon>
+                        <ion-icon name="star" (click)="ratingValueChange(evaluationData,2)" [ngClass]="definitiveEvaluation2"></ion-icon>
+                        <ion-icon name="star" (click)="ratingValueChange(evaluationData,3)" [ngClass]="definitiveEvaluation3"></ion-icon>
+                        <ion-icon name="star" (click)="ratingValueChange(evaluationData,4)" [ngClass]="definitiveEvaluation4"></ion-icon>
+                    </ion-col>
+                </ion-row>
+            </div> -->
+        </ion-slide>
+
+    </ion-slides>
+</ion-content>
+<ion-footer>
+    <ion-row class="evaluation definitive-evaluation text-center">
+        <ion-col size="12">
+            <ion-icon name="star" (click)="footerRatingValueChange(1)" [ngClass]="definitiveEvaluation1"></ion-icon>
+            <ion-icon name="star" (click)="footerRatingValueChange(2)" [ngClass]="definitiveEvaluation2"></ion-icon>
+            <ion-icon name="star" (click)="footerRatingValueChange(3)" [ngClass]="definitiveEvaluation3"></ion-icon>
+            <ion-icon name="star" (click)="footerRatingValueChange(4)" [ngClass]="definitiveEvaluation4"></ion-icon>
+        </ion-col>
+    </ion-row>
+</ion-footer>

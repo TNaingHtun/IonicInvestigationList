@@ -1,0 +1,80 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-label class="pointer" slot="start" (click)="back()">キャンセル</ion-label>
+        <ion-title>プロフィール</ion-title>
+        <ion-label slot="end" class="pointer" (click)="editProfile()">保存</ion-label>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="editProfileForm">
+        <div class="profile-image">
+            <img src="{{image}}" alt="profile">
+            <div class="profile-edit" (click)="takePictureBoth()">
+                <ion-icon name="camera-outline"></ion-icon>
+            </div>
+        </div>
+        <ion-row class="title">
+            <ion-label>お名前</ion-label>
+        </ion-row>
+        <ion-row class="text">
+            <ion-col size="4">
+                <ion-label>Name</ion-label>
+            </ion-col>
+            <ion-col>
+                <ion-input type="text" formControlName="user_name" placeholder="Enter your name" value="{{name}}"></ion-input>
+                <span class="error text-danger" *ngIf="isSubmitted && errorControl.user_name.errors?.required">
+                    Name is required.
+                </span>
+                <span class="error text-danger" *ngIf="showErrors">
+                    {{errors.name}}
+                </span>
+            </ion-col>
+        </ion-row>
+        <ion-row class="text">
+            <ion-col size="4">
+                <ion-label>Email</ion-label>
+            </ion-col>
+            <ion-col>
+                <ion-input type="text" formControlName="user_email" placeholder="Enter your email" value="{{email}}"></ion-input>
+                <span class="error text-danger" *ngIf="isSubmitted && errorControl.user_email.errors?.required">
+                    Email is required.
+                </span>
+                <span class="error text-danger" *ngIf="isSubmitted && errorControl.user_email.hasError('pattern')">
+                    Email format doesn't match.
+                </span>
+                <span class="error text-danger" *ngIf="showErrors">
+                    {{errors.email}}
+                </span>
+            </ion-col>
+        </ion-row>
+        <ion-row class="text">
+            <ion-col size="4">
+                <ion-label>Phone</ion-label>
+            </ion-col>
+            <ion-col>
+                <ion-input type="text" formControlName="user_phone" placeholder="Enter your phone" value="{{phone}}"></ion-input>
+                <span class="error text-danger" *ngIf="isSubmitted && errorControl.user_phone.hasError('maxlength')">
+                    Phone number is greater than 11 characters.
+                </span>
+                <span class="error text-danger" *ngIf="showErrors">
+                    {{errors.phone}}
+                </span>
+            </ion-col>
+        </ion-row>
+        <ion-row class="text">
+            <ion-col size="4">
+                <ion-label>Address</ion-label>
+            </ion-col>
+            <ion-col>
+                <ion-input type="text" formControlName="user_address" placeholder="Enter your address" value="{{address}}"></ion-input>
+                <span class="error text-danger" *ngIf="isSubmitted && errorControl.user_address.hasError('maxlength')">
+                    Address is greater than 200 characters.
+                </span>
+                <span class="error text-danger" *ngIf="showErrors">
+                    {{errors.address}}
+                </span>
+            </ion-col>
+        </ion-row>
+    </form>
+</ion-content>

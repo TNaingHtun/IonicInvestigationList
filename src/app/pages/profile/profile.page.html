@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>プロフィール</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="home" (click)="back()"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="profile">
+        <ion-row class="profile-detail">
+            <ion-col size="3">
+                <img src="{{image}}" alt="Profile">
+            </ion-col>
+            <ion-col size="9">
+                <ion-label class="family-name">{{name}}</ion-label>
+                <ion-label class="name">{{phone}}</ion-label>
+                <ion-label class="name">{{email}}</ion-label>
+                <ion-label class="name">{{address}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6" class="border-right align-center">
+                <ion-label>Asddasf</ion-label>
+                <div>
+                    <ion-icon name="bar-chart-outline"></ion-icon>
+                    <ion-label>78</ion-label>
+                    <small>pt</small>
+                </div>
+            </ion-col>
+            <ion-col size="6" class="align-center">
+                <ion-label>Asddasf</ion-label>
+                <div>
+                    <ion-icon name="server-outline"></ion-icon>
+                    <ion-label>48</ion-label>
+                    <small>pt</small>
+                </div>
+            </ion-col>
+        </ion-row>
+        <div class="profile-edit" (click)="profileEdit()">
+            <ion-icon name="pencil-outline"></ion-icon>
+        </div>
+    </div>
+</ion-content>

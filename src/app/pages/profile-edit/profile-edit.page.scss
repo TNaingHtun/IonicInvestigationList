@@ -1,0 +1,69 @@
+ion-toolbar {
+    font-size: 14px;
+    padding: 0px 20px;
+    ion-title {
+        text-align: center;
+        font-size: 14px;
+    }
+    .pointer {
+        cursor: pointer;
+    }
+}
+
+ion-content {
+    --background: #F2F2F2;
+}
+
+.profile-image {
+    padding: 50px 20px;
+    text-align: center;
+    position: relative;
+    img {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        object-fit: cover;
+        vertical-align: middle;
+    }
+    .profile-edit {
+        right: 40%;
+        position: absolute;
+        background: #707070;
+        border-radius: 50%;
+        top: 50%;
+        z-index: 2;
+        cursor: pointer;
+        ion-icon {
+            vertical-align: middle;
+            font-size: 15px;
+            color: #fff;
+            padding: 5px;
+        }
+    }
+}
+
+.title {
+    padding: 0px 0px 5px 10px;
+    ion-label {
+        font-size: 12px;
+        font-weight: 100;
+    }
+}
+
+.text {
+    background: #ffffff;
+    padding: 10px;
+    border-bottom: 1px solid #F2F2F2;
+    ion-label {
+        font-size: 12px;
+        font-weight: 100;
+    }
+}
+
+.error {
+    display: block;
+    color: red;
+    font-size: 12px;
+    font-weight: light;
+    padding-left: 15px;
+}

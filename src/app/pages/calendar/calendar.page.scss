@@ -1,0 +1,275 @@
+ion-header {
+    height: 44px;
+    ion-title {
+        font-size: 13.5px;
+    }
+    .btn-back {
+        width: 32px;
+        height: 32px;
+        --background: white;
+        --padding-start: 0px;
+        --padding-end: 0px;
+        --background-activated: none;
+        ion-icon {
+            color: #717171;
+            font-size: 25px;
+        }
+    }
+}
+
+.header-md::after {
+    /* Removes the toolbar shadow. */
+    background: none;
+    border-bottom: 1.5px solid var(--background-grey);
+    bottom: -1px!important;
+    background-position: left 0 top -2px!important;
+}
+
+ion-content,
+ion-row,
+ion-col,
+ion-button,
+ion-icon,
+p,
+div,
+h2,
+ion-segment,
+ion-segment-button,
+ion-label,
+ion-icon {
+    padding: 0px;
+    margin: 0px;
+}
+
+ion-content {
+    --offset-bottom: auto!important;
+    --overflow: hidden;
+     ::-webkit-scrollbar,
+    *::-webkit-scrollbar {
+        display: none;
+    }
+    --background: #F2F2F2;
+    border-top: 1px solid #E3E3E3;
+}
+
+ion-segment {
+    height: 44px;
+    background-color: white;
+    border-bottom: 1px solid #E3E3E3;
+    scrollbar-width: none;
+    // contain: layout;
+    ion-segment-button {
+        min-height: 44px;
+        --indicator-color: #A9A9A9!important;
+        --indicator-height: 3px;
+        --color-checked: #707070 bold;
+        --color: #707070;
+        font-size: 11px;
+        .label1 {
+            font-size: 11px;
+        }
+    }
+}
+
+.changePosition {
+    top: 0;
+    position: absolute;
+}
+
+h2 {
+    font-size: 16px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.moveSlideRow {
+    padding: 0px 5px;
+    background: #E6E6E6;
+}
+
+.weekDaysRow {
+    padding: 8px;
+    background: #EBEBEB;
+}
+
+.weekDaysColumn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.calendarIcon {
+    color: gray;
+    font-size: 18px;
+}
+
+hr {
+    height: 0px;
+    border: 0.2px solid lightgray;
+}
+
+.chooseDatetitle {
+    padding-left: 15px;
+}
+
+.calendar-content {
+    padding: 20px;
+    background: white;
+}
+
+.calendar-background {
+    background: #F2F2F2;
+}
+
+.empty-content {
+    // height: calc(100% - 370px);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    color: rgba(112, 112, 112, 0.6);
+    font-size: 14px;
+    margin-top: 100px;
+}
+
+.schedule-list {
+    display: flex;
+    background: white;
+    margin-top: 1px;
+}
+
+.schedule-list-img {
+    width: 80px;
+    text-align: center;
+    padding-top: 28px;
+}
+
+.schedule-list-img-icon {
+    width: 32px;
+    height: 24px;
+    color: #A9A9A9;
+}
+
+.schedule-list-text {
+    font-size: 14px;
+    color: #707070;
+    padding-right: 20px;
+    padding-top: 20px;
+}
+
+.schedule-list-time {
+    display: flex;
+    font-size: 10px;
+    color: rgba(113, 113, 113, 0.5);
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.schedule-list-time-text {
+    margin-left: 10px;
+}
+
+:host ::ng-deep {
+    .monthview-current {
+        background: #DCDCDC!important;
+        color: black;
+        border-radius: 50%;
+    }
+    .monthview-selected {
+        background-color: #A9A9A9!important;
+        border-radius: 50%;
+    }
+    .monthview-datetable {
+        border: 0 !important;
+        td,
+        th {
+            border: 0 !important;
+            padding: 10px 10px !important;
+            background-color: transparent!important;
+            display: table-cell;
+            justify-content: center;
+            align-items: center;
+            line-height: 24px !important;
+        }
+    }
+    .calendar-day {
+        width: 25px;
+        border-radius: 50%;
+        // color: gray;
+    }
+    .success {
+        background-color: green;
+        color: white;
+    }
+    .primary {
+        background-color: red;
+        color: white;
+    }
+    .warning {
+        background-color: blue;
+        color: white;
+    }
+    .danger {
+        background-color: orange;
+        color: white;
+    }
+    .gray {
+        background-color: darkgray;
+        color: white;
+    }
+}
+
+.indicator-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.event-indicator {
+    background: #A9A9A9;
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    display: table-cell;
+    margin-top: 3px;
+    position: absolute;
+}
+
+.with-event {
+    width: 100%;
+    display: flex;
+    //background: red;
+    text-align: center;
+    justify-content: center;
+}
+
+.currentDate {
+    background: #DCDCDC!important;
+    color: black;
+}
+
+.selectedDate {
+    background-color: #A9A9A9!important;
+    border-radius: 50%;
+}
+
+.schedule-list-img-final {
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.schedule-list-time-text-final {
+    font-size: 10px;
+    padding: 10px 0px 20px;
+    color: #ABABAB;
+}
