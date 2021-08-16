@@ -27,6 +27,22 @@ const routes: Routes = [
     path: 'calendar',
     loadChildren: () => import('./pages/calendar/calendar.module').then( m => m.CalendarPageModule)
   },
+  {
+    path: 'image-stamp',
+    loadChildren: () => import('./pages/image-stamp/image-stamp.module').then( m => m.ImageStampPageModule)
+  },
+  {
+    path: 'image-stamp-modal',
+    loadChildren: () => import('./pages/image-stamp-modal/image-stamp-modal.module').then( m => m.ImageStampModalPageModule)
+  },
+  {
+    path: 'commitment-checkbox-modal',
+    loadChildren: () => import('./pages/commitment-checkbox-modal/commitment-checkbox-modal.module').then( m => m.CommitmentCheckboxModalPageModule)
+  },
+  {
+    path: 'commitment-checkbox',
+    loadChildren: () => import('./pages/commitment-checkbox/commitment-checkbox.module').then( m => m.CommitmentCheckboxPageModule)
+  },
 ];
 
 @NgModule({

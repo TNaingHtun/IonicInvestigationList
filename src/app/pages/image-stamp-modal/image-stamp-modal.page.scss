@@ -1,0 +1,54 @@
+.stamp {
+    margin: 10px;
+    justify-content: space-between;
+    ion-col {
+        background: #EAEAEA;
+        border-radius: 5px;
+    }
+}
+
+.stamp-image {
+    text-align: center;
+    img {
+        width: 32px;
+        height: 24px;
+        object-fit: cover;
+    }
+}
+
+.stamp-text {
+    text-align: center;
+    ion-label {
+        font-size: 8px;
+    }
+}
+
+.profile {
+    margin: 10px;
+    img {
+        vertical-align: middle;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+}
+
+.profile-input {
+    border: 1px solid #717171;
+    border-radius: 5px;
+    input {
+        font-size: 12px;
+        border: none !important;
+        outline: none;
+    }
+    ion-label {
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 900;
+    }
+}
+
+ion-slide {
+    width: 85px;
+}

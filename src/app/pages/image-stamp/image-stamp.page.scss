@@ -1,0 +1,73 @@
+ion-card {
+    padding: 10px 20px;
+    background: #a0a0a0;
+}
+
+ion-label {
+    font-size: 10px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+}
+
+.white {
+    font-size: 26px;
+    padding: 5px 3px;
+    color: #ffffff;
+}
+
+.gray {
+    font-size: 26px;
+    padding: 5px 3px;
+    color: #717171;
+}
+
+.label {
+    text-align: center;
+    padding-top: 15px;
+    border-radius: 8px;
+}
+
+.self-evaluation {
+    margin-bottom: 10px;
+    .label {
+        background: #fff;
+    }
+}
+
+.fixed-evaluation {
+    margin-bottom: 10px;
+    .label {
+        background: #717171;
+        color: #fff;
+    }
+}
+
+.profile {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.profile-name {
+    font-size: 10px;
+    vertical-align: middle;
+}
+
+.stampCol {
+    text-align: center;
+}
+
+.notice {
+    img {
+        width: 32px;
+        height: 24px;
+        position: absolute;
+        bottom: 35%;
+        object-fit: cover;
+    }
+    p {
+        font-size: 14px;
+        font-weight: 500;
+    }
+}

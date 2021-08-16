@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>commitment-checkbox</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-row>
+            <ion-col size="4" *ngFor="let commitmentData of commitmentDataList; let i=index;">
+                <div *ngIf="i == 4" class="sheet main-goal">
+                    <label>{{commitmentData.main_goal_name}}</label>
+                </div>
+                <div *ngIf="i != 4" class="sheet" (click)="checkShowModal()">
+                    <label>{{commitmentData.commitment_sheet_name}}</label>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-card>
+</ion-content>

@@ -1,0 +1,29 @@
+ion-card {
+    border-radius: 5px;
+}
+
+ion-col {
+    padding: 0 !important;
+}
+
+.sheet {
+    height: 120px;
+    text-align: center;
+    padding: 10px;
+    background: #717171;
+    cursor: pointer;
+    vertical-align: middle;
+    font-size: 12px;
+    label {
+        position: relative;
+        top: 40%;
+        color: #ffffff;
+    }
+}
+
+.main-goal {
+    background: #ffffff;
+    label {
+        color: #717171;
+    }
+}

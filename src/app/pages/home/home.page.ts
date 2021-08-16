@@ -70,4 +70,12 @@ export class HomePage {
   toCalendar(){
     this.router.navigate(['calendar']);
   }
+
+  toImageStamp(){
+    this.router.navigate(['image-stamp']);
+  }
+
+  toCommitmentCheck(){
+    this.router.navigate(['commitment-checkbox']);
+  }
 }

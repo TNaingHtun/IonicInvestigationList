@@ -40,8 +40,8 @@ export class EvaluationScorePage implements OnInit {
   evaluationSlideData: any;
 
   public now: Date = new Date();
-  timeAgo:any;
-  seconds:any;
+  timeAgo: any;
+  seconds: any;
 
   constructor(
     private router: Router,
@@ -50,10 +50,11 @@ export class EvaluationScorePage implements OnInit {
   ) {
     this.ngOnInit();
     this.storage.create();
-    setInterval(()=>{
+    this.getJsonData();
+    setInterval(() => {
       this.now = new Date();
       this.createdDateChanged(this.evaluationSlideData.created_at);
-    },1000);
+    }, 1000);
   }
 
   ngOnInit() {
@@ -71,6 +72,7 @@ export class EvaluationScorePage implements OnInit {
       console.log(this.total);
       this.definitiveEvaluationRate = 0;
       this.currentPage = 0;
+      this.definitiveRatingData = [];
     }
     this.calculateProgressBar(this.currentPage);
   }
@@ -85,7 +87,7 @@ export class EvaluationScorePage implements OnInit {
     }, 100);
   }
   //get Json Data
-  getJsonData(){
+  getJsonData() {
     this.global.getEvaluationRatingData().subscribe(response => {
       console.log('enter');
       console.log(response);
@@ -105,8 +107,38 @@ export class EvaluationScorePage implements OnInit {
     this.calculateProgressBar(this.currentPage);
     this.slider.slideNext().then(() => {
       this.slider.lockSwipes(true);
-      this.definitiveEvaluationRate = 0;
-      this.checkStardefinitiveEvaluation(this.definitiveEvaluationRate);
+
+      if (this.currentPage < this.total) {
+        this.storage.get('definiteEvaluationData').then((data) => {
+          console.log('check enter');
+          if (data) {
+            let prevPage = this.currentPage + 1;
+            console.log('data', data);
+            console.log('current page', prevPage);
+
+            //check evaluation_data_id in storage
+            let check_evaluation_data_id = data.definitiveRatingData.some(function (el) { return el.evaluation_data.id === prevPage });
+            console.log('current data is or not', check_evaluation_data_id);
+
+            if (check_evaluation_data_id) {
+              data.definitiveRatingData.forEach(element => {
+                if (element.evaluation_data.id == prevPage) {
+                  console.log(this.currentPage);
+                  console.log(element.definitive_rate);
+                  this.checkStardefinitiveEvaluation(element.definitive_rate);
+                }
+              });
+            } else {
+              this.definitiveEvaluationRate = 0;
+              this.checkStardefinitiveEvaluation(this.definitiveEvaluationRate);
+            }
+          } else {
+            this.definitiveEvaluationRate = 0;
+            this.checkStardefinitiveEvaluation(this.definitiveEvaluationRate);
+          }
+        });
+      }
+
     });
   }
 
@@ -247,6 +279,8 @@ export class EvaluationScorePage implements OnInit {
       console.log(evaluationAllDataObj.evaluation_data.id);
       if (this.definitiveRatingData && this.definitiveRatingData.length) {
         console.log(this.definitiveRatingData.length);
+
+        //check evaluation_data_id from slide all store data
         let check_evaluation_data_id = this.definitiveRatingData.some(function (el) { return el.evaluation_data.id === evaluationData.id });
         if (check_evaluation_data_id) {
           this.definitiveRatingData.forEach(element => {
@@ -309,12 +343,10 @@ export class EvaluationScorePage implements OnInit {
     });
   };
 
-  createdDateChanged(date: any): any{
+  createdDateChanged(date: any): any {
     console.log('enter date');
-    console.log(date);
     if (date) {
       this.seconds = Math.floor((+this.now - +new Date(date)) / 1000);
-      console.log(this.seconds);
       if (this.seconds < 29) // less than 30 seconds ago will show as 'Just now'
         return 'Just now';
       const intervals = {

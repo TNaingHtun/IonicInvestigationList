@@ -13,4 +13,8 @@ export class GlobalService {
   getEvaluationRatingData() {
     return this.httpClient.get('./assets/json/evaluationScore.json');
   }
+
+  getStaffCommitmentData(){
+    return this.httpClient.get('./assets/json/staffCommitmentData.json');
+  }
 }

@@ -1,0 +1,59 @@
+ion-toolbar {
+    border: none !important;
+    --border-width: 0px !important;
+    --background: #717171;
+    button {
+        background: none !important;
+    }
+}
+
+.swiper-slide {
+    padding: 0 !important;
+    display: block !important;
+}
+
+.commitment-sheet {
+    padding-top: 95px;
+    padding-bottom: 20px;
+    position: relative;
+    background: #F2F2F2;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    .progress {
+        ion-label {
+            background: #717171;
+            padding: 0px 5px;
+            border-radius: 20px;
+            color: #ffffff;
+        }
+    }
+    img {
+        width: 64px;
+        height: 45px;
+        object-fit: cover;
+    }
+}
+
+.commitment-checkbox {
+    margin-top: 30px;
+    text-align: center;
+    input {
+        vertical-align: middle;
+    }
+    .checkbox {
+        text-align: end;
+    }
+    .text {
+        text-align: start;
+    }
+}
+
+small {
+    font-size: 10px;
+    color: #717171;
+    opacity: 0.5;
+}
+
+.commitment-name {
+    padding-bottom: 72px;
+}

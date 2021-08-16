@@ -45,3 +45,13 @@
     font-size: 13px;
     color: #717171!important;
 }
+
+//modal
+.stamp-modal {
+    --height: 25%;
+    align-items: flex-end;
+}
+
+.sc-ion-modal-ios-h:first-of-type {
+    --backdrop-opacity: var(--ion-backdrop-opacity, 0.6);
+}

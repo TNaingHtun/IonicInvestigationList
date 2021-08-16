@@ -1,0 +1,106 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Image Stamp</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-row>
+            <ion-col size="12">
+                <ion-label>中間評価</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row class="self-evaluation">
+            <ion-col class="label" size="3">
+                <ion-label>中間自己評価</ion-label>
+            </ion-col>
+            <ion-col size="6">
+                <ion-icon name="star" class="gray"></ion-icon>
+                <ion-icon name="star" class="gray"></ion-icon>
+                <ion-icon name="star" class="white"></ion-icon>
+                <ion-icon name="star" class="white"></ion-icon>
+            </ion-col>
+        </ion-row>
+        <ion-row class="fixed-evaluation">
+            <ion-col class="label" size="3">
+                <ion-label>中間自己評価</ion-label>
+            </ion-col>
+            <ion-col size="6">
+                <ion-icon name="star" class="white"></ion-icon>
+                <ion-icon name="star" class="white"></ion-icon>
+                <ion-icon name="star" class="white"></ion-icon>
+                <ion-icon name="star" class="white"></ion-icon>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6" (click)="showStamp()">
+                <img class="profile" src="assets/images/profile.png" alt="profile">
+                <ion-label class="profile-name">コメント…</ion-label>
+            </ion-col>
+        </ion-row>
+    </ion-card>
+
+    <ion-row *ngIf="showStampPhoto">
+        <ion-col size="12" class="stampCol">
+            <img class="stamp" [src]="displayStamp" alt="Stamp">
+        </ion-col>
+    </ion-row>
+    <div class="notice">
+        <ion-item lines="full">
+            <ion-row>
+                <ion-col size="2">
+                    <img src="assets/images/stamp1.png" alt="stamp">
+                </ion-col>
+                <ion-col size="10">
+                    <p>◯◯さんがコミットメントシートへ最終自己評価を入力しました。</p>
+                    <small>
+                        <ion-icon name="time-outline"></ion-icon>4日前
+                    </small>
+                </ion-col>
+            </ion-row>
+        </ion-item>
+        <ion-item lines="full">
+            <ion-row>
+                <ion-col size="2">
+                    <img src="assets/images/stamp2.png" alt="stamp">
+                </ion-col>
+                <ion-col size="10">
+                    <p>◯◯さんがコミットメントシートへ最終自己評価を入力しました。</p>
+                    <small>
+                        <ion-icon name="time-outline"></ion-icon>4日前
+                    </small>
+                </ion-col>
+            </ion-row>
+        </ion-item>
+        <ion-item lines="full">
+            <ion-row>
+                <ion-col size="2">
+                    <img src="assets/images/stamp3.png" alt="stamp">
+                </ion-col>
+                <ion-col size="10">
+                    <p>◯◯さんがコミットメントシートへ最終自己評価を入力しました。</p>
+                    <small>
+                        <ion-icon name="time-outline"></ion-icon>4日前
+                    </small>
+                </ion-col>
+            </ion-row>
+        </ion-item>
+        <ion-item lines="full">
+            <ion-row>
+                <ion-col size="2">
+                    <img src="assets/images/stamp4.png" alt="stamp">
+                </ion-col>
+                <ion-col size="10">
+                    <p>◯◯さんがコミットメントシートへ最終自己評価を入力しました。</p>
+                    <small>
+                        <ion-icon name="time-outline"></ion-icon>4日前
+                    </small>
+                </ion-col>
+            </ion-row>
+        </ion-item>
+    </div>
+</ion-content>
