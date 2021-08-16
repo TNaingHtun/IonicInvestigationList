@@ -1,0 +1,15 @@
+.semi-progress {
+    margin-top: 20px;
+    position: relative;
+    .percent {
+        position: absolute;
+        top: 60%;
+        right: 40%;
+    }
+}
+
+round-progress {
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 10px;
+}

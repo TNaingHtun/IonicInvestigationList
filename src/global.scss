@@ -55,3 +55,15 @@
 .sc-ion-modal-ios-h:first-of-type {
     --backdrop-opacity: var(--ion-backdrop-opacity, 0.6);
 }
+
+//semi-progress
+.semi-progress {
+    round-progress {
+        circle {
+            stroke-width: 15px !important;
+        }
+        path {
+            stroke-width: 20px !important;
+        }
+    }
+}

@@ -78,4 +78,7 @@ export class HomePage {
   toCommitmentCheck(){
     this.router.navigate(['commitment-checkbox']);
   }
+  toSemiProgress(){
+    this.router.navigate(['semicircle-progress']);
+  }
 }

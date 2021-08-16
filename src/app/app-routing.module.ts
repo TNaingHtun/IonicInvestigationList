@@ -43,6 +43,10 @@ const routes: Routes = [
     path: 'commitment-checkbox',
     loadChildren: () => import('./pages/commitment-checkbox/commitment-checkbox.module').then( m => m.CommitmentCheckboxPageModule)
   },
+  {
+    path: 'semicircle-progress',
+    loadChildren: () => import('./pages/semicircle-progress/semicircle-progress.module').then( m => m.SemicircleProgressPageModule)
+  },
 ];
 
 @NgModule({
