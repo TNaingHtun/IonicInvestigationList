@@ -7,7 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { SemicircleProgressPageRoutingModule } from './semicircle-progress-routing.module';
 
 import { SemicircleProgressPage } from './semicircle-progress.page';
-import {RoundProgressModule} from 'angular-svg-round-progressbar';
+import {
+  RoundProgressModule,
+  ROUND_PROGRESS_DEFAULTS
+  } from 'angular-svg-round-progressbar';
 
 @NgModule({
   imports: [

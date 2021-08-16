@@ -20,12 +20,22 @@
         </ion-col>
         <ion-col size="6">
             <div class="semi-progress">
-                <round-progress [current]="current" [max]="max" [color]="'#45ccce'" [background]="'#eaeaea'" [radius]="80" [stroke]="20" [semicircle]="false" [rounded]="true" [clockwise]="false" [responsive]="false">
+                <round-progress [current]="current" [max]="max" [color]="color" [background]="background" [radius]="80" [stroke]="20" [semicircle]="false" [rounded]="true" [clockwise]="false" [responsive]="false">
                 </round-progress>
+
                 <div class="percent">
                     <ion-label>{{percent}}%</ion-label>
                 </div>
             </div>
         </ion-col>
     </ion-row>
+    <svg>
+      <defs>
+        <linearGradient id="gradient" x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:rgb(69 168 252);stop-opacity:1"></stop>
+          <stop offset="50%" style="stop-color:rgb(0 255 161);stop-opacity:1"></stop>
+          <stop offset="100%" style="stop-color:rgb(46 241 41);stop-opacity:1"></stop>
+        </linearGradient>
+      </defs>
+    </svg>
 </ion-content>

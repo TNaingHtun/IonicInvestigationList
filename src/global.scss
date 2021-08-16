@@ -64,6 +64,8 @@
         }
         path {
             stroke-width: 20px !important;
+            // stroke: rgba(69, 204, 206, 0.5);
+            stroke: url(#gradient) !important;
         }
     }
 }
