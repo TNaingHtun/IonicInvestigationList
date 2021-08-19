@@ -36,19 +36,19 @@ export class ProfilePage implements OnInit {
     this.global.getFirebaseRefreshToken().then(token=>{
       console.log(token);
       this.token = token;
+      this.storage.get('profile id').then((profile_id) => {
+        this.profile_id = profile_id;
+        this.getProfileDetail(this.profile_id,this.token)
+      })
     });
   }
 
   ionViewWillEnter() {
-    this.storage.get('profile id').then((profile_id) => {
-      this.profile_id = profile_id;
-      this.getProfileDetail(this.profile_id)
-    })
   }
 
-  getProfileDetail(profile_id) {
+  getProfileDetail(profile_id,token) {
     this.present('Loading... ');
-    this.profileService.getProfileDetail(profile_id,this.token)
+    this.profileService.getProfileDetail(profile_id,token)
       .pipe(
         finalize(() => {
 
