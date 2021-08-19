@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "phone-auth-27278": {
+      "hosting": {
+        "app": [
+          "phone-auth-27278"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "phone-auth-27278"
+  }
+}

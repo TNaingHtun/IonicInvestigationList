@@ -21,6 +21,7 @@ export class ProfilePage implements OnInit {
   address: string = '';
   image: string = '';
   isLoading = false;
+  token:string;
 
   constructor(
     private profileService: ProfileService,
@@ -32,6 +33,10 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
     this.storage.create();
+    this.global.getFirebaseRefreshToken().then(token=>{
+      console.log(token);
+      this.token = token;
+    });
   }
 
   ionViewWillEnter() {
@@ -43,7 +48,7 @@ export class ProfilePage implements OnInit {
 
   getProfileDetail(profile_id) {
     this.present('Loading... ');
-    this.profileService.getProfileDetail(profile_id)
+    this.profileService.getProfileDetail(profile_id,this.token)
       .pipe(
         finalize(() => {
 

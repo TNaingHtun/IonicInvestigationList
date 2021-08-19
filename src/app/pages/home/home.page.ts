@@ -11,31 +11,37 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  profile_id = 3;
+  profile_id = 1;
   profile: any;
   name: string = '';
   phone: string = '';
   email: string = '';
   address: string = '';
   image: string = '';
+  token:string;
 
   constructor(
     private router: Router,
-    private profileService: ProfileService,
     private global : GlobalService,
     private storage: Storage,
+    private profileService: ProfileService,
     ) {}
     ngOnInit() {
       this.storage.create();
+      this.storage.set('profile id',this.profile_id);
+      this.global.getFirebaseRefreshToken().then(token=>{
+        console.log(token);
+        this.token = token;
+        this.getProfile(this.profile_id,this.token);
+      });
     }
 
     ionViewWillEnter() {
-      this.storage.set('profile id',this.profile_id);
-      this.getProfile(this.profile_id)
+      
     }
 
-    getProfile(profile_id) {
-      this.profileService.getProfileDetail(profile_id)
+    getProfile(profile_id,token) {
+      this.profileService.getProfileDetail(profile_id,token)
         .pipe(
           finalize(() => {
   

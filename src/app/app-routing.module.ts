@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'phone-auth',
     pathMatch: 'full'
   },
   {
@@ -46,6 +46,10 @@ const routes: Routes = [
   {
     path: 'semicircle-progress',
     loadChildren: () => import('./pages/semicircle-progress/semicircle-progress.module').then( m => m.SemicircleProgressPageModule)
+  },
+  {
+    path: 'phone-auth',
+    loadChildren: () => import('./pages/phone-auth/phone-auth.module').then( m => m.PhoneAuthPageModule)
   },
 ];
 

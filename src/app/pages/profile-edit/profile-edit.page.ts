@@ -51,6 +51,7 @@ export class ProfileEditPage implements OnInit {
   kbytes: number;
   showErrors = false;
   errors:any;
+  token:string;
   constructor(
     private profileService: ProfileService,
     private profileEditService: ProfileEditService,
@@ -84,6 +85,10 @@ export class ProfileEditPage implements OnInit {
 
   ngOnInit() {
     this.storage.create();
+    this.global.getFirebaseRefreshToken().then(token=>{
+      console.log(token);
+      this.token = token;
+    });
   }
 
   ionViewWillEnter() {
@@ -100,7 +105,7 @@ export class ProfileEditPage implements OnInit {
   getProfileDetail(profile_id) {
     this.present('Loading... ');
     this.showErrors = false;
-    this.profileService.getProfileDetail(profile_id)
+    this.profileService.getProfileDetail(profile_id,this.token)
       .pipe(
         finalize(() => {
 
@@ -226,7 +231,7 @@ export class ProfileEditPage implements OnInit {
         };
       }
       console.log(this.user_data);
-      this.profileEditService.updateProfile(this.profile_id, this.user_data)
+      this.profileEditService.updateProfile(this.profile_id, this.user_data,this.token)
         .pipe(finalize(() => {
           this.dismiss()
         }))

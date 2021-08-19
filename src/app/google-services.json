@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "373612246600",
+    "project_id": "phone-auth-27278",
+    "storage_bucket": "phone-auth-27278.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373612246600:android:cb08fa94d6d11e295aca7d",
+        "android_client_info": {
+          "package_name": "com.bib.kyaung"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "373612246600-b0qjgb82sbffq95cjb1j4s99pvbvgks6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bib.kyaung",
+            "certificate_hash": "60b0f9fab4afc3bb0856269766120099eb50aa99"
+          }
+        },
+        {
+          "client_id": "373612246600-b8d5922n37934dfvrv7r1e0uqvo9ucjs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrRblazEQyd_YkXVhW-QOHRJW3OkY0V-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "373612246600-b8d5922n37934dfvrv7r1e0uqvo9ucjs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
