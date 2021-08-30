@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import firebase from 'firebase/app';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,9 @@ import firebase from 'firebase/app';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(
+    private uniqueDeviceID: UniqueDeviceID
+  ) { }
 
   ngOnInit() {
     firebase.initializeApp({
@@ -18,7 +21,14 @@ export class AppComponent {
       messagingSenderId: "373612246600",
       appId: "1:373612246600:web:db7ea89b5585a4295aca7d",
       measurementId: "G-J702HG58KL"
-      }
+    }
     );
+    this.uniqueDeviceID.get()
+      .then((uuid: any) => {
+        console.log('device id:', uuid);
+      })
+      .catch((error: any) =>{
+        console.log(error);
+      });
   }
 }

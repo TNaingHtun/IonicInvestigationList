@@ -18,6 +18,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+import { FCM } from '@ionic-native/fcm/ngx';
+import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,6 +37,9 @@ import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ng
     CameraPreview,
     NavParams,
     FirebaseAuthentication,
+    UniqueDeviceID,
+    FCM,
+    FirebaseX,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

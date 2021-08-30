@@ -4,6 +4,8 @@ import { AlertController, ToastController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
 import { Storage } from '@ionic/storage';
+import { FCM } from '@ionic-native/fcm/ngx';
+import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 
 @Component({
   selector: 'app-phone-auth',
@@ -14,6 +16,7 @@ export class PhoneAuthPage implements OnInit {
   number: string;
   result: any;
   user_token: any;
+  fcm_token: any;
 
   constructor(
     private router: Router,
@@ -21,7 +24,9 @@ export class PhoneAuthPage implements OnInit {
     private firebaseAuthentication: FirebaseAuthentication,
     public toastCtrl: ToastController,
     private afs: AngularFirestore,
-    private storage:Storage
+    private storage: Storage,
+    private fcm: FCM,
+    private firebaseX: FirebaseX
   ) { }
 
   ngOnInit() {
@@ -76,12 +81,16 @@ export class PhoneAuthPage implements OnInit {
                       phone: this.result.phoneNumber,
                       token: this.user_token
                     });
+
+                    this.firebaseX.getToken().then(token=>{
+                      this.fcm_token = token;
+                      console.log(this.fcm_token);
+                    });
+                    
+
                     this.storage.set('userToken', this.user_token);
                     this.router.navigate(['home']);
                   });
-
-
-
                 }
               })
             }).catch(async (error) => {

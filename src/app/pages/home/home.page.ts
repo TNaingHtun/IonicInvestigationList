@@ -4,6 +4,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { GlobalService } from 'src/app/services/global.service';
 import { finalize, isEmpty } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 
 @Component({
   selector: 'app-home',
@@ -18,73 +19,80 @@ export class HomePage {
   email: string = '';
   address: string = '';
   image: string = '';
-  token:string;
+  token: string;
 
   constructor(
     private router: Router,
-    private global : GlobalService,
+    private global: GlobalService,
     private storage: Storage,
     private profileService: ProfileService,
-    ) {}
-    ngOnInit() {
-      this.storage.create();
-      this.storage.set('profile id',this.profile_id);
-      this.global.getFirebaseRefreshToken().then(token=>{
-        console.log(token);
-        this.token = token;
-        this.getProfile(this.profile_id,this.token);
-      });
-    }
+    private uniqueDeviceID: UniqueDeviceID
+  ) { }
+  ngOnInit() {
+    this.storage.create();
+    this.storage.set('profile id', this.profile_id);
+    this.global.getFirebaseRefreshToken().then(token => {
+      console.log(token);
+      this.token = token;
+      this.getProfile(this.profile_id, this.token);
+    });
 
-    ionViewWillEnter() {
-      
-    }
+    this.uniqueDeviceID.get()
+      .then((uuid: any) =>{
+        console.log('device id:',uuid);
+      } )
+      .catch((error: any) => console.log(error));
+  }
 
-    getProfile(profile_id,token) {
-      this.profileService.getProfileDetail(profile_id,token)
-        .pipe(
-          finalize(() => {
-  
-          }))
-        .subscribe(
-          data => {
-            this.profile = data;
-            console.log(this.profile);
-            this.name = this.profile.name;
-            this.phone = this.profile.phone;
-            this.email = this.profile.email;
-            this.address = this.profile.address;
-            if(this.profile.image === null){
-              this.image = "assets/images/profile.png";
-            }else{
-              this.image = this.global.s3_url + this.profile.image;
-              console.log(this.image);
-            }
-          }, (error: any) => {
-            console.log(error);
+  ionViewWillEnter() {
+
+  }
+
+  getProfile(profile_id, token) {
+    this.profileService.getProfileDetail(profile_id, token)
+      .pipe(
+        finalize(() => {
+
+        }))
+      .subscribe(
+        data => {
+          this.profile = data;
+          console.log(this.profile);
+          this.name = this.profile.name;
+          this.phone = this.profile.phone;
+          this.email = this.profile.email;
+          this.address = this.profile.address;
+          if (this.profile.image === null) {
+            this.image = "assets/images/profile.png";
+          } else {
+            this.image = this.global.s3_url + this.profile.image;
+            console.log(this.image);
           }
-        )
-    }
+        }, (error: any) => {
+          console.log(error);
+        }
+      )
+  }
 
-  goToProfile(){
+  goToProfile() {
     this.router.navigate(['profile']);
   }
-  toProgressBar(){
+  toProgressBar() {
     this.router.navigate(['evaluation-score']);
   }
-  
-  toCalendar(){
+
+  toCalendar() {
     this.router.navigate(['calendar']);
   }
 
-  toImageStamp(){
+  toImageStamp() {
     this.router.navigate(['image-stamp']);
   }
 
-  toCommitmentCheck(){
+  toCommitmentCheck() {
     this.router.navigate(['commitment-checkbox']);
   }
-  toSemiProgress(){
+  toSemiProgress() {
     this.router.navigate(['semicircle-progress']);
   }
 }
