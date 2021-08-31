@@ -5,6 +5,8 @@ import { GlobalService } from 'src/app/services/global.service';
 import { finalize, isEmpty } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
+import { Badge } from '@ionic-native/badge/ngx';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +28,8 @@ export class HomePage {
     private global: GlobalService,
     private storage: Storage,
     private profileService: ProfileService,
-    private uniqueDeviceID: UniqueDeviceID
+    private uniqueDeviceID: UniqueDeviceID,
+    private badge: Badge
   ) { }
   ngOnInit() {
     this.storage.create();
@@ -38,9 +41,9 @@ export class HomePage {
     });
 
     this.uniqueDeviceID.get()
-      .then((uuid: any) =>{
-        console.log('device id:',uuid);
-      } )
+      .then((uuid: any) => {
+        console.log('device id:', uuid);
+      })
       .catch((error: any) => console.log(error));
   }
 
@@ -95,4 +98,5 @@ export class HomePage {
   toSemiProgress() {
     this.router.navigate(['semicircle-progress']);
   }
+  
 }

@@ -19,8 +19,10 @@ import { environment } from '../environments/environment';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
-import { FCM } from '@ionic-native/fcm/ngx';
+// import { FCM } from '@ionic-native/fcm/ngx';
+import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
+import { Badge } from '@ionic-native/badge/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,6 +42,7 @@ import { FirebaseX } from '@ionic-native/firebase-x/ngx';
     UniqueDeviceID,
     FCM,
     FirebaseX,
+    Badge,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

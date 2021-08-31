@@ -4,9 +4,11 @@ import { AlertController, ToastController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
 import { Storage } from '@ionic/storage';
-import { FCM } from '@ionic-native/fcm/ngx';
+import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
+// import { FCM } from '@ionic-native/fcm/ngx';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
-
+import { Badge } from '@ionic-native/badge/ngx';
+import { Platform } from '@ionic/angular';
 @Component({
   selector: 'app-phone-auth',
   templateUrl: './phone-auth.page.html',
@@ -17,6 +19,7 @@ export class PhoneAuthPage implements OnInit {
   result: any;
   user_token: any;
   fcm_token: any;
+  badge_number: number;
 
   constructor(
     private router: Router,
@@ -26,11 +29,29 @@ export class PhoneAuthPage implements OnInit {
     private afs: AngularFirestore,
     private storage: Storage,
     private fcm: FCM,
-    private firebaseX: FirebaseX
+    private platform: Platform,
+    private badge: Badge
   ) { }
 
   ngOnInit() {
     this.storage.create();
+    this.platform.ready().then(() => {
+      // get FCM token
+      this.fcm.getToken().then(token => {
+        console.log(token);
+      });
+
+      this.badge.set(0);
+      this.fcm.onNotification().subscribe(data => {
+        console.log(data);
+
+        if (data.wasTapped == false) {
+          this.badge.increase(1);
+        } else {
+          this.badge.clear();
+        }
+      })
+    });
   }
 
   sendOtp() {
@@ -82,11 +103,16 @@ export class PhoneAuthPage implements OnInit {
                       token: this.user_token
                     });
 
-                    this.firebaseX.getToken().then(token=>{
-                      this.fcm_token = token;
-                      console.log(this.fcm_token);
-                    });
-                    
+                    // ionic push notification example
+                    // this.fcm.onNotification().subscribe(data => {
+                    //   console.log(data);
+
+                    //   if (data.wasTapped) {
+                    //     console.log('Received in background');
+                    //   } else {
+                    //     console.log('Received in foreground');
+                    //   }
+                    // });
 
                     this.storage.set('userToken', this.user_token);
                     this.router.navigate(['home']);
