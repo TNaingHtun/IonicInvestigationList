@@ -1,0 +1,31 @@
+<ion-header no-shadow no-border>
+    <ion-toolbar>
+        <ion-title>プロフィールを入力しよう！</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="home" (click)="back()"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-row class="bar">
+        <div class="progress-bar d-flex">
+            <ion-icon class="selectIcon" name="ellipse-outline"></ion-icon>
+            <ion-icon class="selectIcon" name="ellipse-outline"></ion-icon>
+            <ion-icon class="selectIcon" name="ellipse-outline"></ion-icon>
+        </div>
+        <div class="progress-bar-text d-flex">
+            <ion-label class="selectText">基本情報</ion-label>
+            <ion-label class="progress-bar-text-center selectText">資格・学歴</ion-label>
+            <ion-label class="selectText">職歴</ion-label>
+        </div>
+    </ion-row>
+    <div class="register-form">
+        <p class="enterText">お住まいの都道府県を教えてください</p>
+        <ion-list>
+            <ion-item *ngFor='let address of prefectures' class="row-hover" (click)='clickAddress(address)' button="true" lines="full">
+                <p>{{address}}</p>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>

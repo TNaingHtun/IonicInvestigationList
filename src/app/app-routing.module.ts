@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'phone-auth',
+    redirectTo: 'profile-registration',
     pathMatch: 'full'
   },
   {
@@ -50,6 +50,10 @@ const routes: Routes = [
   {
     path: 'phone-auth',
     loadChildren: () => import('./pages/phone-auth/phone-auth.module').then( m => m.PhoneAuthPageModule)
+  },
+  {
+    path: 'profile-registration',
+    loadChildren: () => import('./pages/profile-registration/profile-registration.module').then( m => m.ProfileRegistrationPageModule)
   },
 ];
 
