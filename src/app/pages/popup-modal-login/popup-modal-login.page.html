@@ -1,0 +1,20 @@
+<ion-content>
+    <div class="close-btn">
+        <ion-buttons start>
+            <button ion-button icon-only (click)="closeModal()">
+                <ion-icon name="close"></ion-icon>
+            </button>
+        </ion-buttons>
+    </div>
+    <div class="logo">
+        <img src="assets/images/logo_v.png" alt="Logo">
+        <p>ログイン <br>アカウント登録済みの方</p>
+    </div>
+    <div class="input-phone">
+        <input type="number" name="phone" id="phone" placeholder="携帯電話番号を入力してください">
+    </div>
+    <div class="login-div">
+        <button class="ion-button login-btn" (click)="checkShowModal()">ログイン</button>
+    </div>
+
+</ion-content>

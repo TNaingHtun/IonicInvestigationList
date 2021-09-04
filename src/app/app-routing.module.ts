@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'profile-registration',
+    redirectTo: 'popup-modal-test',
     pathMatch: 'full'
   },
   {
@@ -54,6 +54,22 @@ const routes: Routes = [
   {
     path: 'profile-registration',
     loadChildren: () => import('./pages/profile-registration/profile-registration.module').then( m => m.ProfileRegistrationPageModule)
+  },
+  {
+    path: 'popup-modal-test',
+    loadChildren: () => import('./pages/popup-modal-test/popup-modal-test.module').then( m => m.PopupModalTestPageModule)
+  },
+  {
+    path: 'popup-modal-login',
+    loadChildren: () => import('./pages/popup-modal-login/popup-modal-login.module').then( m => m.PopupModalLoginPageModule)
+  },
+  {
+    path: 'popup-modal-shop',
+    loadChildren: () => import('./pages/popup-modal-shop/popup-modal-shop.module').then( m => m.PopupModalShopPageModule)
+  },
+  {
+    path: 'shop-list-modal',
+    loadChildren: () => import('./pages/shop-list-modal/shop-list-modal.module').then( m => m.ShopListModalPageModule)
   },
 ];
 

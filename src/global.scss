@@ -52,6 +52,14 @@
     align-items: flex-end;
 }
 
+.shop-modal {
+    --width: 90%;
+    --height: 45%;
+    align-items: center;
+    --backdrop-opacity: var(--ion-backdrop-opacity, 0.6);
+    --border-radius: 10px;
+}
+
 .sc-ion-modal-ios-h:first-of-type {
     --backdrop-opacity: var(--ion-backdrop-opacity, 0.6);
 }
