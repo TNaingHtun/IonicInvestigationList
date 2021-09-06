@@ -21,6 +21,11 @@ export class PhoneAuthPage implements OnInit {
   fcm_token: any;
   badge_number: number;
 
+  connectedBarColor='connectedBarColorNone'
+  registrationValueOne = 'selectIcon';
+  registrationValueTwo = 'unselectIcon';
+  registrationValueThree = 'unselectIcon';
+
   constructor(
     private router: Router,
     private alertCtrl: AlertController,

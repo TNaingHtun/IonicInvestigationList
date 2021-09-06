@@ -1,0 +1,12 @@
+<ion-row class="bar">
+    <div class="registration-bar d-flex" [ngClass]="connectedBarColor">
+        <ion-icon [ngClass]="registrationValueOne" name="ellipse-outline"></ion-icon>
+        <ion-icon [ngClass]="registrationValueTwo" name="ellipse-outline"></ion-icon>
+        <ion-icon [ngClass]="registrationValueThree" name="ellipse-outline"></ion-icon>
+    </div>
+    <div class="registration-bar-text d-flex">
+        <ion-label [ngClass]="registrationValueOne">基本情報</ion-label>
+        <ion-label class="registration-bar-text-center" [ngClass]="registrationValueTwo">資格・学歴</ion-label>
+        <ion-label [ngClass]="registrationValueThree">職歴</ion-label>
+    </div>
+</ion-row>

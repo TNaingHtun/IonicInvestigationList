@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PhoneAuthPageRoutingModule } from './phone-auth-routing.module';
 
 import { PhoneAuthPage } from './phone-auth.page';
+import { RegistrationBarComponent } from '../../component/registration-bar/registration-bar.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { PhoneAuthPage } from './phone-auth.page';
     IonicModule,
     PhoneAuthPageRoutingModule
   ],
-  declarations: [PhoneAuthPage]
+  declarations: [PhoneAuthPage,RegistrationBarComponent]
 })
 export class PhoneAuthPageModule {}

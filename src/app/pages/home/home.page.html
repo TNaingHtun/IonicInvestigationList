@@ -7,18 +7,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-row class="bar">
-        <div class="progress-bar d-flex">
-            <ion-icon class="selectIcon" name="ellipse-outline"></ion-icon>
-            <ion-icon class="selectIcon" name="ellipse-outline"></ion-icon>
-            <ion-icon class="unselectIcon" name="ellipse-outline"></ion-icon>
-        </div>
-        <div class="progress-bar-text d-flex">
-            <ion-label class="selectText">基本情報</ion-label>
-            <ion-label class="progress-bar-text-center selectText">資格・学歴</ion-label>
-            <ion-label>職歴</ion-label>
-        </div>
-    </ion-row>
+    <app-registration-bar [connectedBarColor]="connectedBarColor" [registrationValueOne]="registrationValueOne" [registrationValueTwo]="registrationValueTwo" [registrationValueThree]="registrationValueThree"></app-registration-bar>
 
     <div class="container">
         <ion-row class="profile" (click)="goToProfile()">

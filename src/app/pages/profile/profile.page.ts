@@ -23,6 +23,11 @@ export class ProfilePage implements OnInit {
   isLoading = false;
   token:string;
 
+  connectedBarColor='connectedBarColorTwo'
+  registrationValueOne = 'selectIcon';
+  registrationValueTwo = 'selectIcon';
+  registrationValueThree = 'selectIcon';
+
   constructor(
     private profileService: ProfileService,
     private router: Router,

@@ -23,6 +23,11 @@ export class HomePage {
   image: string = '';
   token: string;
 
+  connectedBarColor='connectedBarColorOne'
+  registrationValueOne = 'selectIcon';
+  registrationValueTwo = 'selectIcon';
+  registrationValueThree = 'unselectIcon';
+
   constructor(
     private router: Router,
     private global: GlobalService,

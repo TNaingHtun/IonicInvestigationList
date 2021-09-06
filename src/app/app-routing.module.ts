@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'popup-modal-test',
+    redirectTo: 'phone-auth',
     pathMatch: 'full'
   },
   {
