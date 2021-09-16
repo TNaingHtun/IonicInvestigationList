@@ -6,7 +6,6 @@ import { finalize, isEmpty } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
-import { Badge } from '@ionic-native/badge/ngx';
 
 @Component({
   selector: 'app-home',
@@ -34,7 +33,6 @@ export class HomePage {
     private storage: Storage,
     private profileService: ProfileService,
     private uniqueDeviceID: UniqueDeviceID,
-    private badge: Badge
   ) { }
   ngOnInit() {
     this.storage.create();

@@ -10,14 +10,24 @@
 <ion-content>
     <ion-card>
         <ion-row>
-            <ion-col size="4" *ngFor="let commitmentData of commitmentDataList; let i=index;">
+            <ion-col size="4" *ngFor="let commitmentData of skillDataList; let i=index;">
                 <div *ngIf="i == 4" class="sheet main-goal">
-                    <label>{{commitmentData.main_goal_name}}</label>
+                    <h3>{{commitmentData.main_goal}}</h3>
                 </div>
-                <div *ngIf="i != 4" class="sheet" (click)="checkShowModal()">
-                    <label>{{commitmentData.commitment_sheet_name}}</label>
+                <div *ngIf="i != 4" class="sheet background{{i+1}}" (click)="checkShowModal()">
+                    <h3>{{commitmentData.skill_name}}</h3>
+                    <p>{{commitmentData.skill_details_name}}</p>
                 </div>
             </ion-col>
         </ion-row>
     </ion-card>
+    <div class="checkApi" *ngFor="let commitmentApiData of commitmentApiDataList; let x=index;">
+        <h3>{{commitmentApiData.skill_name}}</h3>
+        <h4>{{commitmentApiData.skill_details_name}}</h4>
+        <div *ngFor="let actionPlanData of commitmentApiData.action_plans; let i=index;">
+            <input *ngIf="actionPlanData.is_complete == 0" type="checkbox" name="check{{i+1}}" id="check{{i+1}}" (click)="commitmentUnCheck(actionPlanData.selected_action_plan_id)">
+            <input *ngIf="actionPlanData.is_complete == 1" type="checkbox" name="check{{i+1}}" id="check{{i+1}}" (click)="commitmentCheck(actionPlanData.selected_action_plan_id)" checked>
+            <label for="check{{i+1}}">{{actionPlanData.action_plan_name}}</label>
+        </div>
+    </div>
 </ion-content>

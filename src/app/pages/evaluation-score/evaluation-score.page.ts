@@ -5,6 +5,7 @@ import { GlobalService } from 'src/app/services/global.service';
 import { NavParams } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { isEmpty } from 'rxjs/operators';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-evaluation-score',

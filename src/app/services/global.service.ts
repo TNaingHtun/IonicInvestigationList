@@ -8,7 +8,7 @@ import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ng
 })
 export class GlobalService {
 
-  api_url = "https://525171dd95ab.ngrok.io/api/";
+  api_url = "http://127.0.0.1:8000/api/";
   s3_url = "https://canayell-dev.s3.ap-northeast-1.amazonaws.com/user_profile/";
   httpOptions: any;
   profile_id: any;

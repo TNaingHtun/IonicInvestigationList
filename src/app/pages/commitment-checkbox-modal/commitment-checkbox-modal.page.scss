@@ -16,7 +16,7 @@ ion-toolbar {
     padding-top: 95px;
     padding-bottom: 20px;
     position: relative;
-    background: #F2F2F2;
+    background-position: center !important;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     .progress {
@@ -32,6 +32,26 @@ ion-toolbar {
         height: 45px;
         object-fit: cover;
     }
+}
+
+.background1 {
+    background: url('../../../assets/images/logo_v_wh.png') no-repeat, #F9C824;
+}
+
+.background2 {
+    background: url('../../../assets/images/logo_v_wh.png') no-repeat, #2DEAA8;
+}
+
+.background3 {
+    background: url('../../../assets/images/logo_v_wh.png') no-repeat, #1FC8C2;
+}
+
+.background4 {
+    background: url('../../../assets/images/logo_v_wh.png') no-repeat, #FA8F47;
+}
+
+.background5 {
+    background: url('../../../assets/images/logo_v_wh.png') no-repeat, #F5F5F5;
 }
 
 .commitment-checkbox {

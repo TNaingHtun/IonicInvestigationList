@@ -77,3 +77,10 @@
         }
     }
 }
+
+//loading display none
+.my-custom-class {
+    .loading-wrapper {
+        display: none !important;
+    }
+}

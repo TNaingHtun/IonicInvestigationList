@@ -1,5 +1,14 @@
+ion-content {
+    --background: #F5F5F5;
+}
+
 ion-card {
     border-radius: 5px;
+    margin: 0 auto;
+    margin: 20px 29px;
+    ion-row {
+        height: 100%;
+    }
 }
 
 ion-col {
@@ -7,23 +16,78 @@ ion-col {
 }
 
 .sheet {
-    height: 120px;
+    height: 105px;
     text-align: center;
     padding: 10px;
-    background: #717171;
     cursor: pointer;
     vertical-align: middle;
     font-size: 12px;
-    label {
+    h3 {
         position: relative;
-        top: 40%;
+        color: #ffffff;
+        font-size: 9px;
+        font-weight: 900;
+        margin-bottom: 0px;
+        display: inline-block;
+    }
+    p {
+        font-size: 8px;
         color: #ffffff;
     }
 }
 
+.background1 {
+    background: #F9C824;
+}
+
+.background2 {
+    background: #2DEAA8;
+}
+
+.background3 {
+    background: #1FC8C2;
+}
+
+.background4 {
+    background: #FA8F47;
+}
+
+.background5 {
+    background: #048CF2;
+}
+
+.background6 {
+    background: #F44369;
+}
+
+.background7 {
+    background: #ED71AD;
+}
+
+.background8 {
+    background: #7E7CF9;
+}
+
 .main-goal {
-    background: #ffffff;
-    label {
+    background: #F5F5F5;
+    h3 {
         color: #717171;
+    }
+    p {
+        color: #000000;
+    }
+}
+
+.checkApi {
+    padding: 20px 20px;
+    background: #ffffff;
+    margin-bottom: 5px;
+    h3 {
+        font-size: 16px;
+        font-weight: 900;
+    }
+    h4,
+    label {
+        font-size: 14px;
     }
 }

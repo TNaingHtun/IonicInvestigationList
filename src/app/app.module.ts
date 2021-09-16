@@ -22,7 +22,7 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 // import { FCM } from '@ionic-native/fcm/ngx';
 import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
-import { Badge } from '@ionic-native/badge/ngx';
+import { Badge } from '@ionic-native/badge/ngx'
 
 @NgModule({
   declarations: [AppComponent],

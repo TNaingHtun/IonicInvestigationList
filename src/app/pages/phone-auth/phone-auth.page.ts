@@ -5,10 +5,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
 import { Storage } from '@ionic/storage';
 import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
-// import { FCM } from '@ionic-native/fcm/ngx';
-import { FirebaseX } from '@ionic-native/firebase-x/ngx';
-import { Badge } from '@ionic-native/badge/ngx';
 import { Platform } from '@ionic/angular';
+import { Badge } from '@ionic-native/badge/ngx';
 @Component({
   selector: 'app-phone-auth',
   templateUrl: './phone-auth.page.html',
@@ -42,20 +40,20 @@ export class PhoneAuthPage implements OnInit {
     this.storage.create();
     this.platform.ready().then(() => {
       // get FCM token
-      this.fcm.getToken().then(token => {
-        console.log(token);
-      });
+      
+      // this.badge.set(0);
+      // this.fcm.onNotification().subscribe(data => {
+      //   console.log(data);
 
-      this.badge.set(0);
-      this.fcm.onNotification().subscribe(data => {
-        console.log(data);
-
-        if (data.wasTapped == false) {
-          this.badge.increase(1);
-        } else {
-          this.badge.clear();
-        }
-      })
+      //   if (data.wasTapped == false) {
+      //     this.badge.increase(10);
+      //     this.badge.get().then(badge=>{
+      //       console.log(badge);
+      //     })
+      //   } else {
+      //     this.badge.clear();
+      //   }
+      // })
     });
   }
 
@@ -107,6 +105,19 @@ export class PhoneAuthPage implements OnInit {
                       phone: this.result.phoneNumber,
                       token: this.user_token
                     });
+
+                    this.fcm.hasPermission().then(hasPermission => {
+                      if (hasPermission) {
+                        console.log("Has permission!");
+                        this.fcm.getToken().then(token => {
+                          console.log('FCM token',token);
+                        });
+                      }
+                    }).catch(err=>{
+                      console.log(err);
+                    })
+
+                    
 
                     // ionic push notification example
                     // this.fcm.onNotification().subscribe(data => {
