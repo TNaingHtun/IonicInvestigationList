@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'commitment-checkbox',
+    redirectTo: 'phone-auth',
     pathMatch: 'full'
   },
   {

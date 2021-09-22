@@ -1,24 +1,35 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ToastController } from '@ionic/angular';
-import { CalendarComponentOptions } from 'ion2-calendar';
+import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
+import { formatDate } from '@angular/common';
 import { CalendarComponent } from 'ionic2-calendar';
-import * as moment from 'moment'
+import { connectListeners } from '@ionic/core/dist/types/utils/overlays';
 
+export interface DayEvent {
+  id?: string;
+  title: string;
+  endTime: Date;
+  startTime: Date;
+  allDay: boolean;
+}
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.page.html',
   styleUrls: ['./calendar.page.scss'],
 })
 export class CalendarPage implements OnInit {
+  unsubscribeBackEvent: any;
+  taskSegment: string;
+  scheduleSegment: string;
+  showTask: boolean;
+  taskList = [];
+  scheduleList = [];
+  now: Date = new Date();
+
+  //schedule
   dateRange: { from: string; to: string; };
 
   type: 'string';
-  optionsRange: CalendarComponentOptions = {
-    monthFormat: 'YYYY 年 MM 月 ',
-    weekdays: ['日', '月', '火', '水', '木', '金', '土'],
-    weekStart: 1,
-  };
-
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
   event = {
     title: '',
@@ -30,53 +41,75 @@ export class CalendarPage implements OnInit {
   eventSource = [];
   addDay = 1000 * 60 * 60 * 24;
   eventSource1 = [
+    
     {
-      allDay: false,
+      
       color: "success",
-      endTime: new Date(new Date().getTime() + this.addDay),
-      startTime: new Date(new Date().getTime() + this.addDay),
+      endTime: new Date(new Date().getTime() + this.addDay), 
+      startTime:  new Date(new Date().getTime() + this.addDay), 
       title: "All Day - 0"
     },
     {
       allDay: false,
       color: "primary",
-      endTime: new Date(new Date().getTime() + this.addDay * 2),
-      startTime: new Date(new Date().getTime() + this.addDay * 2),
-      title: "All Day - 0"
-    },
-    {
-      allDay: false,
-      color: "warning",
-      endTime: new Date(new Date().getTime() + this.addDay * 5),
-      startTime: new Date(new Date().getTime() + this.addDay * 5),
+      endTime: new Date(new Date().getTime() + this.addDay * 2), 
+      startTime:  new Date(new Date().getTime() + this.addDay * 2),  
       title: "All Day - 0"
     },
     {
       allDay: false,
       color: "danger",
-      endTime: new Date(new Date().getTime() + this.addDay * 4),
-      startTime: new Date(new Date().getTime() + this.addDay * 4),
-      title: "All Day - 0"
-    },
-    {
-      allDay: false,
-      color: "success",
-      endTime: new Date(new Date().getTime() + this.addDay),
-      startTime: new Date(new Date().getTime() + this.addDay),
+      endTime: new Date(new Date().getTime() + this.addDay * 2), 
+      startTime:  new Date(new Date().getTime() + this.addDay * 2),  
       title: "All Day - 0"
     },
     {
       allDay: false,
       color: "warning",
-      endTime: new Date(new Date().getTime() + this.addDay * 45),
-      startTime: new Date(new Date().getTime() + this.addDay * 45),
+      endTime: new Date(new Date().getTime() + this.addDay * 2), 
+      startTime:  new Date(new Date().getTime() + this.addDay * 2),  
       title: "All Day - 0"
     },
     {
       allDay: false,
       color: "warning",
-      endTime: new Date(new Date().getTime() - this.addDay * 15),
-      startTime: new Date(new Date().getTime() - this.addDay * 15),
+      endTime: new Date(new Date().getTime() + this.addDay * 5), 
+      startTime:  new Date(new Date().getTime() + this.addDay * 5),  
+      title: "All Day - 0"
+    },
+    {
+      allDay: false,
+      color: "danger",
+      endTime: new Date(new Date().getTime() + this.addDay * 4), 
+      startTime:  new Date(new Date().getTime() + this.addDay * 4), 
+      title: "All Day - 0"
+    },
+    {
+      
+      color: "danger",
+      endTime: new Date(new Date().getTime() + this.addDay), 
+      startTime:  new Date(new Date().getTime() + this.addDay), 
+      title: "All Day - 0"
+    },
+    {
+      allDay: false,
+      color: "warning",
+      endTime: new Date(new Date().getTime() + this.addDay * 45), 
+      startTime:  new Date(new Date().getTime() + this.addDay * 45),  
+      title: "All Day - 0"
+    },
+    {
+      allDay: false,
+      color: "warning",
+      endTime: new Date(new Date().getTime() - this.addDay * 15), 
+      startTime:  new Date(new Date().getTime() - this.addDay * 15),  
+      title: "All Day - 0"
+    },
+    {
+      allDay: true,
+      eventColor: "Schedule",
+      startTime:  new Date(new Date().getTime()- this.addDay * 15),
+      endTime: new Date(new Date().getTime() + this.addDay * 8),   
       title: "All Day - 0"
     },
   ]
@@ -91,62 +124,159 @@ export class CalendarPage implements OnInit {
       }
     }
   };
- 
-  
-  weekdays = ['月', '火', '水', '木', '金', '土', '日']
-  lockSwipes: boolean;
-  block: boolean;
+
+  weekdays = ['日','月', '火', '水', '木', '金', '土'];
   selectDate: boolean = false;
-  selectedDateTitle: string;
-  selectedDateFunctionWork = 0
-  nowTime;
-  myToast: Promise<void>;
-  showToastMessage = false;
-  segment;
 
+  constructor(
+    private router: Router,
+    public platform: Platform,
+  ) {
 
-  //Multi date
-  dateMulti: Date[] = [new Date(2021, 7, 1), new Date(2021, 7, 10), new Date(2021, 6, 30)];
-  // type: 'string'; // 'string' | 'js-date' | 'moment' | 'time' | 'object'
-  optionsMulti: CalendarComponentOptions = {
-    pickMode: 'multi',
-    monthFormat: 'YYYY 年 MM 月 ',
-    weekdays: ['日', '月', '火', '水', '木', '金', '土'],
-    weekStart: 1,
-  };
-  currentMonth: number;
+    this.taskSegment = '';
+    this.scheduleSegment = 'selectedbutton';
+    this.showTask = false;
 
-  markDisabled = (date: Date) => {
-    var d = new Date();
-    // d.setDate(d.getDate() - 1);
-    return date < d;
-  };
-  isToday: boolean;
-
-  constructor(private toastCtrl: ToastController) {
-    console.log(this.dateRange);
-    this.segment = "schedule"
-    //this.createRandomEvents()
+    const selected = new Date();
+    this.viewTitle  = selected.getFullYear() + '年' + (selected.getMonth() + 1) + '月'
+      
     this.eventSource = this.eventSource1
-  }
+   }
 
   ngOnInit() {
-    //this.showToast()
-    //const selected = new Date();
-    //this.selectedDateTitle = moment(selected).format('YYYY') + "年" + moment(selected).format('MM')+ "月" + moment(selected).format('DD')+ "日" + " ( "+ this.weekDay(selected.toString())+" ) "
-
   }
 
-  showToast() {
-    this.myToast = this.toastCtrl.create({
-      message: "<img src='assets/images/awesome-check-circle.svg' >  最終評価保存リストに保存しました",
-      duration: 2000,
-      position: 'top',
-      cssClass: 'toast-custom-class',
-    }).then((toastData) => {
-      console.log(toastData);
-      toastData.present();
-    });
+  segmentClick(selectButton){
+    if (selectButton === 'task'){
+      this.taskSegment = 'selectedbutton';
+      this.scheduleSegment = '';
+      this.showTask = true;
+    }else{
+      this.taskSegment = '';
+      this.scheduleSegment = 'selectedbutton';
+      this.showTask = false;
+    }
+  }
+
+  checkTaskType(type){
+    var typeNumber = parseInt(type)
+    if (typeNumber == 1){
+      return 'assets/icon/to-do-list.svg'
+    }else if (typeNumber == 2){
+      return 'assets/icon/to-do-schedule.svg'
+    }else{
+      return 'assets/icon/to-do-notification.svg'
+    }
+  }
+
+  // calculate time ago function
+  timeAgoSinceDate(time){
+    const value = time;
+    if (value) {
+      const seconds = Math.floor((+this.now - +new Date(value)) / 1000);
+      if (seconds < 60) {
+        return 'たった今';
+      }
+      const intervals = {
+        year: 31536000,   // year
+        月前: 2592000,     // month
+        週間前: 604800,    // week
+        日前: 86400,       // day
+        時間前: 3600,      // hour
+        分前: 60,          // minute
+      };
+      let counter;
+      const days = Math.floor(seconds / intervals[3]);
+      for (const i in intervals) {
+        counter = Math.floor(seconds / intervals[i]);
+        const day = Math.floor(seconds / 86400);
+        if (counter > 0){
+          if (intervals[i] === 31536000){
+            return formatDate(new Date(value), 'yyyy.MM.dd HH:mm', 'en');
+          }
+          else if (intervals[i] === 2592000){
+            return this.calculateMonth(time, day, counter);
+          }
+          else if ( intervals[i] === 604800){
+            return this.calculateWeek(Math.floor(seconds / 86400));
+          }else{
+            return counter + '' + i ;
+          }
+        }
+      }
+    }
+    return value;
+  }
+
+  calculateMonth(time, day , count) {
+    const differenceInMonths = (this.now.getMonth()) - new Date(time).getMonth();
+    if ( differenceInMonths === 1 && new Date(time).getDate() > this.now.getDate()){
+      return day + '日前';
+    }else if (differenceInMonths < 0){
+      return count + '月前';
+    }else if ( day > (differenceInMonths * 30) && day < 364){
+      return differenceInMonths + '月前';
+    }else if (day <= 364 && differenceInMonths !== 1){
+      return (count - 1) + '月前';
+    }else{
+      return (differenceInMonths) + '月前';
+    }
+  }
+
+  calculateWeek(totalDay){
+    const modulus = totalDay % 7;
+    const division = totalDay / 7;
+    if (modulus === 0 && division >= 1){
+      return division + '週間前';
+    }else if (modulus !== 0){
+      return totalDay + '日前';
+    }
+  }
+
+  // schedule
+  dataCarry(data){
+    console.log('dataCarry')
+    console.log(data)
+    this.selectDate = true;
+  }
+
+  doSchedule(){
+    console.log('doSchedule')
+    this.myCal.loadEvents();
+  }
+
+  reloadSource(ev) {
+    console.log('reloadSource')
+    console.log('range changed: startTime: ' + ev.startTime + ', endTime: ' + ev.endTime);
+  }
+
+  onCurrentDateChanged(event: Date) {
+    const selected = new Date(event);
+    let date  = selected.getFullYear() + '年' + (selected.getMonth() + 1) + '月'
+    this.viewTitle = date
+    console.log('onCurrentDateChanged' + date)
+  }
+
+  onTimeSelected(event) {
+    console.log('onTimeSelected');
+    this.eventSource = this.eventSource1;
+    this.myCal.loadEvents();
+  }
+
+  //Selected date reange and hence title changed
+  onViewTitleChanged(title) {
+    const selected = new Date(title);
+    var date  = selected.getFullYear() + '年' + (selected.getMonth() + 1) + '月'
+    console.log('onViewTitleChanged'+ date + "date 1 : " )
+  }
+
+  chooseDate(){
+    console.log('chooseDate')
+    if(this.selectDate == false){
+      this.selectDate = true
+    }else{
+      this.selectDate = false
+    }
   }
 
   next() {
@@ -159,143 +289,53 @@ export class CalendarPage implements OnInit {
     this.myCal.slidePrev();
   }
 
-  //Selected date reange and hence title changed
-  onViewTitleChanged(title) {
-    console.log('onViewTitleChanged')
-    const selected = new Date(title);
-    this.viewTitle = moment(selected).format('YYYY') + "年" + moment(selected).format('MM') + "月";
+  backClick(){
+    this.router.navigate(['tabs/tabTab/home']);
   }
 
-  chooseDate() {
-    console.log('chooseDate')
-    if (this.selectDate == false) {
-      this.selectDate = true
-    } else {
-      this.selectDate = false
+  ionViewDidEnter() {
+    this.initializeBackButtonCustomHandler();
+  }
+
+  initializeBackButtonCustomHandler(): void {
+
+    this.unsubscribeBackEvent = this.platform.backButton.subscribeWithPriority(10, () => {
+      this.router.navigate(['tabs/tabTab/home']);
+    });
+  }
+
+  ionViewWillLeave() {
+    this.unsubscribeBackEvent.unsubscribe();
+  }
+
+  getCustomClass(events,date) {
+    console.log(events);
+    console.log(date);
+    let scheduleColor;
+    let startDate;
+    let endDate;
+    events.forEach(element => {
+      console.log(element.eventColor);
+      scheduleColor = element.eventColor;
+      startDate = element.startTime;
+      endDate = element.endTime;
+    });
+
+    let date1 = new Date(startDate);
+    let date2 =new Date(endDate);
+    console.log(date1);
+    console.log(date2);
+    let startDay= date1.getDate();
+    let endDay = date2.getDate();
+    console.log(startDay);
+    console.log(endDay);
+    if(startDay == date){
+      return 'test'+scheduleColor+'Start';
+    }else if(endDay == date){
+      return 'test'+scheduleColor+'End';
+    }else{
+      return 'test'+scheduleColor;
     }
-  }
-
-  weekDay(selected) {
-    let selectedDate = selected.toString();
-    let weekDaySplit = selectedDate.split(" ");
-    let weekDay = weekDaySplit[0];
-    switch (weekDay) {
-      case "Sun": return "月"
-        break;
-      case "Mon": return "火"
-        break;
-      case "Tue": return "水"
-        break;
-      case "Wed": return "木"
-        break;
-      case "Thu": return "金"
-        break;
-      case "Fri": return "土"
-        break;
-      case "Sat": return "日"
-        break;
-    }
-  }
-
-  segmentChanged(event) {
-    console.log(this.segment)
-    //this.showToast()
-    //this.myCal.loadEvents()
-  }
-
-  // createRandomEvents() {
-  //   let colors: string[] = ['primary', 'warning', 'danger', 'success'];
-
-  //   var events = [];
-  //   for (var i = 0; i < 5; i += 1) {
-  //     var date = new Date();
-  //     var eventType = Math.floor(Math.random() * 2);
-  //     var startDay = Math.floor(Math.random() * 90) - 45;
-  //     var endDay = Math.floor(Math.random() * 2) + startDay;
-  //     var startTime;
-  //     var endTime;
-  //     if (eventType === 0) {
-  //       startTime = new Date(
-  //         Date.UTC(
-  //           date.getUTCFullYear(),
-  //           date.getUTCMonth(),
-  //           date.getUTCDate() + startDay
-  //         )
-  //       );
-  //       if (endDay === startDay) {
-  //         endDay += 1;
-  //       }
-  //       endTime = new Date(
-  //         Date.UTC(
-  //           date.getUTCFullYear(),
-  //           date.getUTCMonth(),
-  //           date.getUTCDate() + endDay
-  //         )
-  //       );
-  //       events.push({
-  //         title: 'All Day - ' + i,
-  //         startTime: startTime,
-  //         endTime: endTime,
-  //         allDay: true,
-  //         color: colors[Math.floor(Math.random()*colors.length)]
-  //       });
-  //     } else {
-  //       var startMinute = Math.floor(Math.random() * 24 * 60);
-  //       var endMinute = Math.floor(Math.random() * 180) + startMinute;
-  //       startTime = new Date(
-  //         date.getUTCFullYear(),
-  //         date.getMonth(),
-  //         date.getDate() + startDay,
-  //         0,
-  //         date.getMinutes() + startMinute
-  //       );
-  //       endTime = new Date(
-  //         date.getUTCFullYear(),
-  //         date.getMonth(),
-  //         date.getDate() + endDay,
-  //         0,
-  //         date.getMinutes() + endMinute
-  //       );
-  //       events.push({
-  //         title: 'Event - ' + i,
-  //         startTime: startTime,
-  //         endTime: endTime,
-  //         allDay: false,
-  //         color: colors[Math.floor(Math.random()*colors.length)]
-  //       });
-  //     }
-  //   }
-  //   this.eventSource = events;
-  //   console.log(events)
-  // }
-
-  removeEvents() {
-    this.eventSource = [];
-  }
-
-  dataCarry(data) {
-    console.log('dataCarry')
-    console.log(data)
-    this.selectDate = true;
-  }
-
-  doSchedule() {
-    console.log('doSchedule')
-    this.myCal.loadEvents();
-  }
-
-  reloadSource(ev) {
-    console.log('reloadSource')
-    console.log('range changed: startTime: ' + ev.startTime + ', endTime: ' + ev.endTime);
-  }
-
-  onCurrentDateChanged(event: Date) {
-    console.log('onCurrentDateChanged')
-  }
-
-  onTimeSelected(event) {
-    console.log('onTimeSelected');
-    this.eventSource = this.eventSource1
-    this.myCal.loadEvents();
+    
   }
 }

@@ -3,7 +3,7 @@
     <name>profile</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://localhost:8100" />
+    <content original-src="index.html" src="http://localhost:8102" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -101,4 +101,5 @@
     <plugin name="cordova-plugin-firebase-authentication" spec="^4.0.2" />
     <allow-navigation href="http://localhost:8100" sessionid="3c7f5253" />
     <allow-navigation href="http://localhost:8101" sessionid="1ee02dca" />
+    <allow-navigation href="http://localhost:8102" sessionid="ee92b74c" />
 </widget>

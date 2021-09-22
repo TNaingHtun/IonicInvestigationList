@@ -1,156 +1,104 @@
 <ion-header no-shadow no-border>
     <ion-toolbar mode='ios'>
         <ion-title>やることリスト</ion-title>
-        <ion-buttons slot="start">
-            <ion-back-button defaultHref="home"></ion-back-button>
-        </ion-buttons>
+        <ion-button class="btn-back" (click)="backButtonClick()">
+            <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+        </ion-button>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <div class="toastMessageTop" *ngIf='showToastMessage'>
-        <img src='assets/images/awesome-check-circle.svg'>
-        <p>最終評価保存リストに保存しました</p>
+    <div class="segmet">
+        <ion-button (click)="segmentClick('task')" [ngClass]="taskSegment">
+            タスク
+        </ion-button>
+        <ion-button (click)="segmentClick('schedule')" [ngClass]="scheduleSegment">
+            スケジュール
+        </ion-button>
     </div>
-    <!-- <ion-segment value="{{segment}}" [(ngModel)]="segment" [ngClass]="showToastMessage ? 'changePosition' : ''" (ionChange)="segmentChanged($event)">
-        <ion-row style="width: 100%;">
-            <ion-col size="4">
-                <ion-segment-button value="notice">
-                    <ion-label class="label1">お知らせ</ion-label>
-                </ion-segment-button>
-            </ion-col>
-            <ion-col size="4" (click)="doSchedule()">
-                <ion-segment-button value="schedule">
-                    <ion-label class="label1">スケジュール</ion-label>
-                </ion-segment-button>
-            </ion-col>
-            <ion-col size="4">
-                <ion-segment-button value="finalEvaluationSaveList">
-                    <ion-label class="label1">最終評価保存リスト</ion-label>
-                </ion-segment-button>
-            </ion-col>
-        </ion-row>
-    </ion-segment> -->
 
-    <ion-segment value="{{segment}}" [(ngModel)]="segment" [ngClass]="showToastMessage ? 'changePosition' : ''" (ionChange)="segmentChanged($event)">
-        <ion-segment-button value="notice">
-            <ion-label class="label1">お知らせ</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="schedule">
-            <ion-label class="label1">スケジュール</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="finalEvaluationSaveList">
-            <ion-label class="label1">最終評価保存リスト</ion-label>
-        </ion-segment-button>
-    </ion-segment>
-
-    <!-- multiple segment button -->
-    <!-- <ion-segment scrollable="true">
-    <ion-segment-button value="{{card}}" *ngFor="let card of [0,1,2,3,4,5]">
-      <ion-label class="label1"  >お知らせ - {{card}}</ion-label>
-    </ion-segment-button>
-  </ion-segment> -->
-
-    <div *ngIf="segment === 'notice'">
-        <div class="schedule-list" *ngFor="let card of [0,1]">
-            <div class="schedule-list-img">
-                <ion-icon name="image" class="schedule-list-img-icon"></ion-icon>
-            </div>
+    <div class="task" *ngIf="showTask">
+        <div class="no-task" *ngIf="taskList.length == 0">
             <div>
-                <p class="schedule-list-text">面談日程や中間評価期限などのスケジュールが入ります。</p>
-                <div class="schedule-list-time">
-                    <ion-icon name="time-outline"></ion-icon>
-                    <p class="schedule-list-time-text">{{nowTime}}</p>
+                <img src='assets/icon/check.svg' class="check-icon">
+                <p class="no-task-title">やることはありません</p>
+                <p class="no-task-body">あなたにやって欲しいことがここに表示されます例）面談のお知らせ、自己評価など</p>
+            </div>
+        </div>
+        <div class="task-list" *ngIf="taskList.length != 0">
+            <div class="task-list-item" *ngFor="let task of taskList">
+                <div class="task-list-item-img">
+                    <img src={{checkTaskType(task.task_type)}}>
+                </div>
+                <div class="task-list-item-data">
+                    <p class="task-list-item-data-title">{{task.task_name}}</p>
+                    <div class="task-list-item-data-time">
+                        <img src="assets/icon/time.svg">
+                        <p>{{timeAgoSinceDate(task.created_at)}}</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- <ion-calendar [(ngModel)]="dateMulti"
-              [options]="optionsMulti"
-              [type]="type"
-              [format]="'YYYY-MM-DD'">
-    </ion-calendar> -->
     </div>
 
-    <div *ngIf="segment === 'finalEvaluationSaveList'">
-        <div class="schedule-list" *ngFor="let card of [0,1,2,3]">
-            <div class="schedule-list-img-final">
-                <img src="assets/images/awesome-user-circle.svg ">
-            </div>
-            <div>
-                <p class="schedule-list-text">小畑 誠一 さん</p>
-                <p class="schedule-list-time-text-final">ホール（役職や担当など）</p>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="segment === 'schedule'">
+    <div class="schedule" *ngIf="!showTask">
         <div class="ion-padding calendar-content">
             <ion-row class="moveSlideRow">
-                <ion-col size="2">
-                    <ion-button fill="clear" (click)="back()">
-                        <ion-icon name="chevron-back-outline" slot="icon-only" class="calendarIcon"></ion-icon>
-                    </ion-button>
+                <ion-col size="3">
+                    <p class="current">今日</p>
                 </ion-col>
-                <ion-col size="8" class="ion-text-center">
-                    <h2>{{ viewTitle }}</h2>
+                <ion-col size="6" class="ion-text-center">
+                    <p class="current-month">{{ viewTitle }}</p>
                 </ion-col>
-                <ion-col size="2" style="text-align: center;">
-                    <ion-button fill="clear" (click)="next()">
-                        <ion-icon name="chevron-forward-outline" slot="icon-only" class="calendarIcon"></ion-icon>
-                    </ion-button>
+                <ion-col size="3" style="text-align: center;">
+                    <div class="move-slice-button">
+                        <ion-icon name="chevron-back-outline" slot="icon-only" class="calendarIcon margin-right" (click)="back()"></ion-icon>
+                        <ion-icon name="chevron-forward-outline" slot="icon-only" class="calendarIcon" (click)="next()">
+                        </ion-icon>
+                    </div>
                 </ion-col>
             </ion-row>
-
             <ion-row class="weekDaysRow">
-                <ion-col *ngFor="let value of weekdays" class="weekDaysColumn">
+                <ion-col *ngFor="let value of weekdays; let i=index;" class="weekDaysColumn" [ngClass]="i == 0? 'sun' : i == 6? 'sat': ''">
                     {{value}}
                 </ion-col>
             </ion-row>
             <div class="calendar-background">
-                <!-- <calendar 
-        [markDisabled]="markDisabled"
-          [monthviewDisplayEventTemplate]="template"
-          [eventSource]="eventSource"
-          [calendarMode]="calendar.mode"
-          [currentDate]="selectedDate"
-          (onCurrentDateChanged)="passedDate($event)"
-          (onRangeChanged)="reloadSource($event)"
-          (onTitleChanged)="onViewTitleChanged($event)"
-          (onEventSelected)="onEventSelected($event)"
-          [lockSwipeToPrev]="lockSwipeToPrev"
-          startHour="9"
-          endHour="19"
-          step="30"
-          startingDayWeek="1"
-          >
-        </calendar> -->
-                <calendar [calendarMode]="calendar.mode" [noEventsLabel]="calendar.noEventsLabel" [startingDayMonth]="calendar.startingDayMonth" [allDayLabel]="calendar.allDayLabel" [currentDate]="calendar.currentDate" [eventSource]="eventSource" (onCurrentDateChanged)="onCurrentDateChanged($event)"
-                    (onRangeChanged)="reloadSource($event)" (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)" (onTimeSelected)="onTimeSelected($event)" [autoSelect]="false" step="30" [monthviewDisplayEventTemplate]="template">
+                <calendar [calendarMode]="calendar.mode" [noEventsLabel]="calendar.noEventsLabel" [allDayLabel]="calendar.allDayLabel" [currentDate]="calendar.currentDate" [eventSource]="eventSource" (onCurrentDateChanged)="onCurrentDateChanged($event)" (onRangeChanged)="reloadSource($event)"
+                    (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)" (onTimeSelected)="onTimeSelected($event)" [autoSelect]="false" step="30" [monthviewDisplayEventTemplate]="template">
                 </calendar>
             </div>
             <ng-template #template let-view="view" let-row="row" let-col="col">
-                <div [class.with-event]="view.dates[row*7+col].events.length">
-                    <div class="calendar-day {{ view.dates[row*7+col].events[0]?.color }}" (click)="dataCarry(view.dates[row*7+col])" [ngClass]="view.dates[row*7+col].current == true ? 'currentDate' : view.dates[row*7+col].selected == true ? 'selectedDate' : ''">
+                <div [ngClass]="getCustomClass(view.dates[row*7+col].events,view.dates[row*7+col].label)" [class.with-event]="view.dates[row*7+col].events.length">
+                    <div [ngClass]="view.dates[row*7+col].current == true ? 'currentDate' : view.dates[row*7+col].selected == true ? 'selectedDate' : ''" class="calendar-day" (click)="dataCarry(view.dates[row*7+col])">
                         {{view.dates[row*7+col].label}}
                     </div>
                 </div>
                 <div class="indicator-container">
-                    <div class="event-indicator" *ngFor="let e of view.dates[row*7+col].events"></div>
+                    <div class="event-indicator {{ view.dates[row*7+col].events[i]?.color }}" *ngFor="let e of view.dates[row*7+col].events; let i = index"></div>
                 </div>
             </ng-template>
         </div>
-        <div class="empty-content" *ngIf="!selectDate">
-            <p>イベントはありません。</p>
-        </div>
-        <div *ngIf="selectDate" class="schedule-list">
-            <div class="schedule-list-img">
-                <ion-icon name="image" class="schedule-list-img-icon"></ion-icon>
-            </div>
+
+        <div class="no-schedule" *ngIf="scheduleList.length == 0">
             <div>
-                <p class="schedule-list-text">面談日程や中間評価期限などのスケジュールが入ります。</p>
-                <div class="schedule-list-time">
-                    <ion-icon name="time-outline"></ion-icon>
-                    <p class="schedule-list-time-text">{{nowTime}}</p>
+                <img src='assets/icon/schedule-calendar-icon.svg' class="no-schedule-icon">
+                <p class="no-schedule-title">イベントはありません</p>
+                <p class="no-schedule-body">面談日程や中間評価期限などの<br> スケジュールが表示されます
+                </p>
+            </div>
+        </div>
+        <div class="task-list schedule-list" *ngIf="scheduleList.length != 0">
+            <div class="task-list-item" *ngFor="let schedule of scheduleList">
+                <div class="task-list-item-img">
+                    <img src={{checkTaskType(schedule.task_type)}}>
+                </div>
+                <div class="task-list-item-data">
+                    <p class="task-list-item-data-title">{{schedule.task_name}}</p>
+                    <div class="task-list-item-data-time">
+                        <img src="assets/icon/time.svg">
+                        <p>{{timeAgoSinceDate(schedule.created_at)}}</p>
+                    </div>
                 </div>
             </div>
         </div>
